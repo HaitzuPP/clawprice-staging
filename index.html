@@ -42,13 +42,13 @@
         .hero-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
         .hero h1{font-size:clamp(24px,3.5vw,40px);font-weight:400;line-height:1.2;margin-bottom:1rem}
         .hero-sub{font-size:15px;color:var(--text-sec);max-width:640px;line-height:1.6}
-        .stats{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 2rem;display:flex;gap:2rem;flex-wrap:wrap}
-        .stat{text-align:center;min-width:120px}
-        .stat-number{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;color:var(--text)}
-        .stat-label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:.25rem}
-        .ticker-stat .stat-number{font-size:1rem !important}
-        .ticker-stat .stat-number a{text-decoration:none;color:inherit}
-        .ticker-stat .stat-number a:hover{text-decoration:underline}
+        .stats{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 2rem;display:flex;gap:1rem;flex-wrap:wrap}
+        .stat-box{display:flex;align-items:center;gap:1rem;border:1px solid var(--border);border-radius:8px;padding:.6rem 1.25rem;font-family:'Fragment Mono',monospace;font-size:.85rem}
+        .stat-box-label{color:var(--text-muted);font-size:.65rem;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+        .stat-box-val{color:var(--text);font-weight:500;white-space:nowrap}
+        .stat-box-pct{font-weight:500;white-space:nowrap}
+        .stat-box a{text-decoration:none;color:inherit;display:flex;align-items:center;gap:1rem}
+        .stat-box a:hover{opacity:.8}
         .controls{max-width:1200px;margin:0 auto;padding:0 1.5rem 1.5rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
         .filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
         .filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
@@ -155,9 +155,9 @@
         <p class="hero-sub">Live market data for public tokens in the OpenClaw and Moltbook ecosystem. Prices update every 60 seconds via CoinGecko.</p>
     </div>
     <div class="stats">
-        <div class="stat"><div class="stat-number" id="stat-mcap">--</div><div class="stat-label">Total Market Cap</div></div>
-        <div class="stat ticker-stat"><div class="stat-number" id="stat-top-gain">--</div><div class="stat-label">Top Gainer</div></div>
-        <div class="stat ticker-stat"><div class="stat-number" id="stat-top-loss">--</div><div class="stat-label">Top Loser</div></div>
+        <div class="stat-box"><span class="stat-box-label">Market Cap</span><span class="stat-box-val" id="stat-mcap">--</span></div>
+        <div class="stat-box" id="stat-top-gain"><span class="stat-box-label">Top Mover</span><span class="stat-box-val">--</span></div>
+        <div class="stat-box" id="stat-top-loss"><span class="stat-box-label">Biggest Drop</span><span class="stat-box-val">--</span></div>
     </div>
     <div class="controls">
         <button class="filter-pill active" data-filter="all" onclick="setFilter('all')">All</button>
@@ -240,8 +240,8 @@
             if(c!=null){if(!topG||c>topG.price_change_percentage_24h)topG=t;if(!topL||c<topL.price_change_percentage_24h)topL=t}
         });
         document.getElementById('stat-mcap').textContent=fmtUsd(total);
-        if(topG){var gc=topG.price_change_percentage_24h;document.getElementById('stat-top-gain').innerHTML='<a href="https://www.coingecko.com/en/coins/'+topG.id+'" target="_blank" rel="noopener"><span style="color:var(--text)">'+topG.symbol.toUpperCase()+'</span> <span style="color:var(--green)">'+fmtChange(gc)+'</span></a>'}
-        if(topL){var lc=topL.price_change_percentage_24h;document.getElementById('stat-top-loss').innerHTML='<a href="https://www.coingecko.com/en/coins/'+topL.id+'" target="_blank" rel="noopener"><span style="color:var(--text)">'+topL.symbol.toUpperCase()+'</span> <span style="color:var(--red)">'+fmtChange(lc)+'</span></a>'}
+        if(topG){var gc=topG.price_change_percentage_24h;document.getElementById('stat-top-gain').innerHTML='<span class="stat-box-label">Top Mover</span><a href="https://www.coingecko.com/en/coins/'+topG.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+topG.symbol.toUpperCase()+'</span><span class="stat-box-pct" style="color:var(--green)">'+fmtChange(gc)+'</span></a>'}
+        if(topL){var lc=topL.price_change_percentage_24h;document.getElementById('stat-top-loss').innerHTML='<span class="stat-box-label">Biggest Drop</span><a href="https://www.coingecko.com/en/coins/'+topL.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+topL.symbol.toUpperCase()+'</span><span class="stat-box-pct" style="color:var(--red)">'+fmtChange(lc)+'</span></a>'}
     }
 
     function getFiltered(){

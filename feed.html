@@ -46,8 +46,9 @@
         .filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
         .filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
         .filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
-        .feed-grid{max-width:900px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
-        .feed-grid iframe{width:100% !important;max-width:100% !important;min-width:100% !important}
+        .feed-grid{max-width:1200px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
+        .feed-grid .timeline-wrap{width:100%;display:flex;justify-content:center}
+        .feed-grid iframe,.feed-grid .twitter-timeline-rendered{width:100% !important;max-width:100% !important}
         .tweet-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color .2s;cursor:pointer;text-decoration:none;color:var(--text);display:flex;flex-direction:column}
         .tweet-card:hover{border-color:var(--border-hover)}
         .tweet-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem}
@@ -179,28 +180,34 @@
         var filtered=currentFilter==='all'?ACCOUNTS:ACCOUNTS.filter(function(a){return a.handle===currentFilter});
         var theme=document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
 
-        filtered.forEach(function(account){
-            var wrap=document.createElement('div');
-            wrap.style.cssText='width:100%';
+        function buildTimelines(){
+            filtered.forEach(function(account){
+                var wrap=document.createElement('div');
+                wrap.className='timeline-wrap';
+                wrap.innerHTML='<p style="color:var(--text-muted);font-size:.85rem;padding:2rem;text-align:center">Loading @'+account.handle+'...</p>';
+                grid.appendChild(wrap);
 
-            var timeline=document.createElement('a');
-            timeline.className='twitter-timeline';
-            timeline.setAttribute('data-theme',theme);
-            timeline.setAttribute('data-chrome','noheader nofooter noborders transparent');
-            timeline.setAttribute('data-tweet-limit','15');
-            timeline.setAttribute('data-width','100%');
-            timeline.setAttribute('href','https://twitter.com/'+account.handle);
-            timeline.textContent='Loading @'+account.handle+'...';
-            wrap.appendChild(timeline);
-            grid.appendChild(wrap);
-        });
+                if(window.twttr&&window.twttr.widgets){
+                    window.twttr.widgets.createTimeline(
+                        {sourceType:'profile',screenName:account.handle},
+                        wrap,
+                        {theme:theme,chrome:'noheader nofooter noborders transparent',tweetLimit:15,width:Math.min(window.innerWidth-48,1100),dnt:true}
+                    ).then(function(el){
+                        if(el){el.style.width='100%';wrap.innerHTML='';wrap.appendChild(el)}
+                    });
+                }
+            });
+        }
 
         if(window.twttr&&window.twttr.widgets){
-            window.twttr.widgets.load(grid);
+            buildTimelines();
         }else{
             var s=document.createElement('script');
             s.src='https://platform.twitter.com/widgets.js';
             s.async=true;
+            s.onload=function(){
+                if(window.twttr&&window.twttr.ready){window.twttr.ready(buildTimelines)}else{setTimeout(buildTimelines,500)}
+            };
             document.body.appendChild(s);
         }
     }

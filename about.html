@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About - OpenClaw Index</title>
+<meta name="description" content="About OpenClaw Index. Powered by Khala Research. Tracking the OpenClaw and Moltbook token ecosystem.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About - OpenClaw Index">
+<meta property="og:description" content="About OpenClaw Index. Powered by Khala Research.">
+<meta property="og:url" content="https://haitzupp.github.io/openclaw-index/about.html">
+<meta property="og:site_name" content="OpenClaw Index">
+<link rel="canonical" href="https://haitzupp.github.io/openclaw-index/about.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#ff6b35;--accent-start:#ff4444;--accent-end:#ff8c00}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#bbb;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#ff6b35}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;transition:background .3s,color .3s}
+a{color:inherit}
+.accent-gradient{background:linear-gradient(135deg,var(--accent-start),var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sammy-banner{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 10%,var(--bg)),color-mix(in srgb,var(--accent) 12%,var(--bg)));border-bottom:1px solid color-mix(in srgb,var(--accent) 20%,var(--border));padding:0.5rem 2rem;display:flex;align-items:center;font-size:0.8rem}
+.sammy-banner a{color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:0.5rem;font-weight:500;transition:color .2s}
+.sammy-banner a:hover{color:color-mix(in srgb,var(--accent) 70%,var(--text))}
+.sammy-name{text-decoration:underline;text-underline-offset:3px}
+.sammy-x{width:13px;height:13px;fill:var(--accent);flex-shrink:0;margin-left:2px}
+.sammy-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:8px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+header{position:sticky;top:0;z-index:100;padding:1rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:0.6rem;font-size:1.2rem;font-weight:600;text-decoration:none;color:var(--text);cursor:pointer}
+.logo-svg{width:30px;height:30px}
+nav{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{color:var(--text-sec);text-decoration:none;font-weight:500;font-size:.875rem;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.submit-btn{border:1px solid var(--text);background:transparent;color:var(--text);padding:.45rem 1rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:.875rem;cursor:pointer;transition:all .2s}
+.submit-btn:hover{background:var(--text);color:var(--bg)}
+.theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-left:.5rem}
+.theme-toggle:hover{border-color:var(--text-sec);color:var(--text)}
+.nav-btns{display:flex;gap:10px;align-items:center}
+main{max-width:800px;margin:0 auto;padding:4rem 2rem}
+h1{font-size:2rem;font-weight:600;margin-bottom:1.5rem;font-family:'Fragment Mono',monospace}
+.about-section{margin-bottom:2.5rem}
+.about-section h2{font-size:1.2rem;font-weight:600;margin-bottom:.75rem;font-family:'Fragment Mono',monospace}
+.about-section p{color:var(--text-sec);line-height:1.8;font-size:.95rem;margin-bottom:1rem}
+.about-section a{color:var(--accent);text-decoration:none}
+.about-section a:hover{text-decoration:underline}
+.powered{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center;margin-top:3rem}
+.powered h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+.powered p{color:var(--text-sec);font-size:.9rem}
+.powered a{color:var(--accent);text-decoration:none;font-weight:600}
+.powered a:hover{text-decoration:underline}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--text-muted);font-size:.8rem}
+footer a{color:var(--text-sec);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--accent)}
+.built-by{display:inline-block;transition:transform .2s}
+.built-by:hover{transform:translateY(-2px)}
+@media(max-width:768px){
+header{flex-direction:column;gap:.75rem;padding:.75rem 1rem}
+nav{width:100%;flex-direction:column;gap:.75rem}
+.nav-links{gap:1.25rem;justify-content:center}
+.nav-btns{flex-direction:row;width:100%;justify-content:center}
+.sammy-banner{padding:.4rem 1rem;font-size:.72rem}
+main{padding:2rem 1rem}
+h1{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="sammy-banner">
+<span class="sammy-dot"></span>
+<a href="https://x.com/0xSammy" target="_blank" rel="noopener">
+Built by <span class="sammy-name">0xSammy</span>
+<svg class="sammy-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+</a>
+</div>
+
+<header>
+<a href="index.html" class="logo">
+<svg class="logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4444"/><stop offset="100%" stop-color="#ff8c00"/></linearGradient></defs>
+<rect width="32" height="32" rx="6" fill="#111"/>
+<path d="M8 24C8 15 11.5 7 16 7C20.5 7 24 15 24 24" stroke="url(#lg)" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M11.5 22C11.5 16 13.5 10 16 10C18.5 10 20.5 16 20.5 22" stroke="url(#lg)" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="16" cy="24" r="2" fill="url(#lg)"/>
+<line x1="16" y1="7" x2="16" y2="4" stroke="url(#lg)" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="10" y1="9" x2="8" y2="7" stroke="url(#lg)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="22" y1="9" x2="24" y2="7" stroke="url(#lg)" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+<span>OpenClaw Index</span>
+</a>
+<nav>
+<div class="nav-links">
+<a href="index.html" class="nav-link">HOME</a>
+<a href="about.html" class="nav-link active">ABOUT</a>
+</div>
+<div class="nav-btns">
+<a href="https://x.com/0xSammy" target="_blank" rel="noopener" class="submit-btn">Submit Listing</a>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" id="theme-btn">&#9728;</button>
+</div>
+</nav>
+</header>
+
+<main>
+<h1>About <span class="accent-gradient">OpenClaw Index</span></h1>
+
+<div class="about-section">
+<h2>What is OpenClaw Index?</h2>
+<p>OpenClaw Index tracks the market performance of tokens in the OpenClaw and Moltbook ecosystem. Data sourced from CoinGecko.</p>
+<p>We provide live price tracking, market cap rankings, volume data, and percentage changes for the top tokens in the ecosystem. The index auto-refreshes every 60 seconds to keep you up to date.</p>
+</div>
+
+<div class="about-section">
+<h2>Data Sources</h2>
+<p>All market data is fetched directly from the <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko API</a>. Prices, market caps, and volume figures are denominated in USD.</p>
+</div>
+
+<div class="about-section">
+<h2>Submit a Listing</h2>
+<p>Want your token listed on the OpenClaw Index? Reach out to <a href="https://x.com/0xSammy" target="_blank" rel="noopener">@0xSammy on X</a> to submit your project for review.</p>
+</div>
+
+<div class="powered">
+<h3>Powered by <a href="https://khala.io" target="_blank" rel="noopener">Khala Research</a></h3>
+<p>Independent research and data for the OpenClaw ecosystem.</p>
+</div>
+</main>
+
+<footer>
+<p>&copy; 2025 OpenClaw Index. All rights reserved.</p>
+<p style="margin-top:.5rem"><a href="https://x.com/0xSammy" target="_blank" rel="noopener" class="built-by">Built by 0xSammy</a></p>
+</footer>
+
+<script>
+(function(){
+var THEME_KEY='openclaw-index-theme';
+var saved=localStorage.getItem(THEME_KEY);
+if(saved==='light')document.documentElement.setAttribute('data-theme','light');
+window.toggleTheme=function(){
+var cur=document.documentElement.getAttribute('data-theme');
+var next=cur==='light'?'dark':'light';
+if(next==='dark'){document.documentElement.removeAttribute('data-theme')}else{document.documentElement.setAttribute('data-theme','light')}
+localStorage.setItem(THEME_KEY,next);
+document.getElementById('theme-btn').innerHTML=next==='light'?'&#9790;':'&#9728;';
+};
+if(saved==='light')document.getElementById('theme-btn').innerHTML='&#9790;';
+})();
+</script>
+</body>
+</html>

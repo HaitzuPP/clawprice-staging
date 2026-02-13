@@ -46,7 +46,7 @@
         .filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
         .filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
         .filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
-        .feed-grid{max-width:1200px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
+        .feed-grid{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
         .feed-grid .timeline-wrap{width:100%;display:flex;justify-content:center}
         .feed-grid iframe,.feed-grid .twitter-timeline-rendered{width:100% !important;max-width:100% !important}
         .tweet-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color .2s;cursor:pointer;text-decoration:none;color:var(--text);display:flex;flex-direction:column}
@@ -181,7 +181,7 @@
                     window.twttr.widgets.createTimeline(
                         {sourceType:'profile',screenName:account.handle},
                         wrap,
-                        {theme:theme,chrome:'noheader nofooter noborders transparent',tweetLimit:15,width:Math.min(window.innerWidth-48,1100),dnt:true}
+                        {theme:theme,chrome:'noheader nofooter noborders transparent',tweetLimit:15,width:750,dnt:true}
                     ).then(function(el){
                         if(el){el.style.width='100%';wrap.innerHTML='';wrap.appendChild(el)}
                     });

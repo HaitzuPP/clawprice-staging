@@ -90,6 +90,16 @@
         .modal-stat-lbl{font-size:.65rem;color:var(--text-muted);text-transform:uppercase}
         .modal-link{display:inline-block;margin-top:1rem;color:var(--accent);text-decoration:none;font-size:.85rem}
         .modal-link:hover{text-decoration:underline}
+        .modal-memo{margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border)}
+        .modal-memo h3{font-family:'Fragment Mono',monospace;font-size:.9rem;font-weight:400;color:var(--text-sec);margin-bottom:.75rem}
+        .modal-memo-list{list-style:none;padding:0}
+        .modal-memo-list li{padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.8rem;color:var(--text-sec);line-height:1.6;padding-left:1rem;position:relative}
+        .modal-memo-list li:last-child{border-bottom:none}
+        .modal-memo-list li::before{content:"";position:absolute;left:0;top:.85rem;width:4px;height:4px;background:var(--accent);border-radius:50%}
+        .modal-memo-links{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+        .modal-memo-links a{color:var(--accent);text-decoration:none;font-size:.75rem;padding:.3rem .65rem;border:1px solid var(--accent);border-radius:6px;transition:all .2s}
+        .modal-memo-links a:hover{background:var(--accent);color:#fff}
+        .modal-disclaimer{font-size:.7rem;color:var(--text-muted);margin-top:1rem;padding:.75rem;background:var(--bg-card);border:1px solid var(--border);border-radius:6px}
         footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center}
         .footer-text{font-size:.75rem;color:var(--text-muted)}
         .footer-text a{color:var(--text-sec);text-decoration:none}
@@ -120,8 +130,8 @@
 <body>
     <div class="sammy-banner">
         <span class="sammy-dot"></span>
-        <a href="https://x.com/0xSammy" target="_blank" rel="noopener">
-            Built by <span class="sammy-name">0xSammy</span>
+        <a href="https://x.com/khalaResearch" target="_blank" rel="noopener">
+            Built by <span class="sammy-name">Khala Research</span>
             <svg class="sammy-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
     </div>
@@ -133,7 +143,6 @@
             <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">HOME</a>
-                <a href="memos/index.html" class="nav-link">MEMOS</a>
                 <a href="feed.html" class="nav-link">FEED</a>
                 
                 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">&#9728;</button>
@@ -180,7 +189,7 @@
 
     <footer>
         <p class="footer-text">&copy; 2026 ClawTracker. All rights reserved.</p>
-        <p class="footer-text" style="margin-top:.5rem"><a href="https://x.com/0xSammy" target="_blank" rel="noopener" class="built-by">Built by 0xSammy</a></p>
+        <p class="footer-text" style="margin-top:.5rem"><a href="https://x.com/khalaResearch" target="_blank" rel="noopener" class="built-by">Built by Khala Research</a></p>
     </footer>
 
     <script>
@@ -295,11 +304,132 @@
 
     function sortBy(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=col==='name'||col==='symbol'}renderTable()}
 
+    var MEMO_DATA={
+        'antihunter':{
+            points:[
+                'On-chain venture desk and autonomous treasury manager built on Base. Anti Hunter operates as an OpenClaw agent that manages live positions, executes buy-and-burn operations, and publishes verifiable on-chain receipts for all treasury activity.',
+                'Receipts-first tokenomics: multi-term staking locks (30/60/90/120 days) with bonus weight multipliers, linear streaming rewards, early-exit penalties, and rollover support. Fee routing splits 33% to Rewards Pool and 67% to Treasury.',
+                'Deterministic buyback controller converts realized PnL (WETH) into on-market $ANTIHUNTER purchases. All burn transactions are verifiable on BaseScan with direct links to null-address transfers.',
+                'Ships open-source OpenClaw skills including browser reliability automation (mutex + single-tab guardrails for thread-safe X automation). Also operates as social media intern for @antifund, running a human-gated news posting agent.',
+                'Active development with public changelog and roadmap. Current focus on reliability hardening (7-day zero-miss KPI), distribution engine (daily high-signal posts), and learning-loop compounding to reduce repeat incidents.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/antihunter'},
+                {label:'Website',url:'https://antihunter.com/'},
+                {label:'BaseScan',url:'https://basescan.org/token/0xe2f3FaE4bc62E21826018364aa30ae45D430bb07'}
+            ]
+        },
+        'kellyclaude':{
+            points:[
+                'KellyClaude is an AI agent personality token on Moltbook, the social network described as "the front page of the agent internet" where AI agents post, comment, and upvote content.',
+                'Deployed on Base at contract 0x50d2...cb07, categorized under Artificial Intelligence, AI Agents, Base Ecosystem, and Moltbook and Openclaw-Themed.',
+                'CoinGecko market cap rank of approximately #1065 with 146 users tracking it. Sentiment data shows 100% bullish votes. Currently trading roughly 27% below its all-time high.',
+                'Moltbook was built by @mattprd and functions as a Reddit-style social network exclusively for AI agents, featuring submolts, posts, and comments. The platform is developing a developer API for AI agent authentication.',
+                'No whitepaper, no GitHub repository, and no formal governance structure disclosed. Primary risks include total dependency on the Moltbook platform and absence of intrinsic token utility beyond social signaling.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/kellyclaude'},
+                {label:'Moltbook',url:'https://www.moltbook.com/u/KellyClaude'},
+                {label:'Twitter/X',url:'https://x.com/KellyClaud90827'},
+                {label:'BaseScan',url:'https://basescan.org/token/0x50d2280441372486beecdd328c1854743ebacb07'}
+            ]
+        },
+        'clawnch':{
+            points:[
+                'CLAWNCH is the native token of clawn.ch, a token launchpad built specifically for AI agents. The platform enables AI agents on Clawstr, Moltx, Moltbook, and 4claw to launch their own tokens on Base via the Clanker token factory.',
+                'CoinGecko categorizes CLAWNCH under AI Agent Launchpad, positioning it as infrastructure rather than just another agent personality token.',
+                'CoinGecko market cap rank of approximately #1049 with 302 watchlist users. Currently trading roughly 65% below its all-time high.',
+                'Integrates with multiple social platforms (Clawstr, Moltx, Moltbook, 4claw), giving it cross-platform network effects that single-agent tokens lack.',
+                'Key risks include dependency on sustained demand for new AI agent token launches and the absence of disclosed tokenomics, supply schedule, or governance structure.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/clawnch'},
+                {label:'Website',url:'https://clawn.ch/'},
+                {label:'Twitter/X',url:'https://x.com/ClawnchDev'},
+                {label:'BaseScan',url:'https://basescan.org/token/0xa1f72459dfa10bad200ac160ecd78c6b77a747be'}
+            ]
+        },
+        'clawd-atg-eth':{
+            points:[
+                'clawd.atg.eth (CLAWD) is an AI agent token on Base that uniquely bridges the Clanker Ecosystem and the Moltbook/OpenClaw ecosystem. The most broadly categorized token in the tracked portfolio with six CoinGecko categories.',
+                'Has a public GitHub repository at github.com/clawdbotatg/clawdfomo3d, indicating active development. The "fomo3d" naming references the classic Fomo3D game contract pattern.',
+                'Highest CoinGecko watchlist count in the ecosystem at 566 users (nearly 4x KellyClaude). Currently trading approximately 85% below its all-time high - the steepest drawdown among tracked tokens.',
+                'ENS-style naming (clawd.atg.eth) signals Ethereum ecosystem alignment and provides some on-chain identity anchor.',
+                'Primary risks include the 85% drawdown, reliance on multiple ecosystem narratives without a clear singular value proposition, and experimental fomo3d-style mechanics.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/clawd-atg-eth'},
+                {label:'Twitter/X',url:'https://x.com/clawdbotatg'},
+                {label:'GitHub',url:'https://github.com/clawdbotatg/clawdfomo3d'},
+                {label:'BaseScan',url:'https://basescan.org/token/0x9f86db9fc6f7c9408e8fda3ff8ce4e78ac7a6b07'}
+            ]
+        },
+        'moltbook':{
+            points:[
+                'Moltbook (MOLT) is the core platform token for moltbook.com - "the front page of the agent internet" - a Reddit-style social network built exclusively for AI agents with submolts, posts, comments, and upvoting.',
+                'Created by @mattprd. Offers a developer API with an OAuth-like layer for AI agents, with an early access developer program live.',
+                'Highest CoinGecko watchlist count in the ecosystem at 1,031 users. Sentiment is 83% bullish / 17% bearish - the only token with bearish votes. Currently trading approximately 94% below its all-time high.',
+                'Functions as a de facto index token for the broader ecosystem. Tokens like KellyClaude, CLAWNCH, and others derive their context from the Moltbook platform.',
+                'Primary risks include the 94% ATH drawdown, no disclosed tokenomics or whitepaper, the unproven market of AI-agent-only social networks, and key-person risk.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/moltbook'},
+                {label:'Website',url:'https://www.moltbook.com/'},
+                {label:'Twitter/X',url:'https://x.com/moltbook'},
+                {label:'BaseScan',url:'https://basescan.org/token/0xB695559b26BB2c9703ef1935c37AeaE9526bab07'},
+                {label:'Dev API',url:'https://www.moltbook.com/developers/apply'}
+            ]
+        },
+        'fomolt':{
+            points:[
+                'Fomolt (FOMOLT) is an agentic paper trading platform at fomolt.com. Provides a simulated crypto trading environment where AI agents practice trading with paper money, compete, and earn real tokens based on performance.',
+                'Full REST API designed for programmatic access by AI agents. Onboarding: register agent via API, fund smart account with USDC on Base, then use API to fetch prices and execute paper trades.',
+                'Uses Base-native smart accounts with gas fees paid automatically in USDC, reducing friction for agent deployment.',
+                'Features a public trade feed and "Biggest Wins" leaderboard for competitive social engagement. Currently in "Early Access" phase.',
+                'Key risks include micro-cap liquidity, early-stage platform, the challenge of converting paper trading into sustainable token demand, and no disclosed tokenomics linking platform usage to token value.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/fomolt'},
+                {label:'Website',url:'https://fomolt.com'},
+                {label:'Twitter/X',url:'https://x.com/fomoltapp'}
+            ]
+        },
+        'molt-bunker':{
+            points:[
+                'MOLT BUNKER (BUNKER) is a runtime environment for AI bots. The "bunker" refers to managed hosting and execution where AI agents can run persistently, positioning it as infrastructure-layer tooling.',
+                'Addresses the pain point of persistent uptime for AI agents on platforms like Moltbook. Abstracts away server management for agent operators.',
+                'CoinGecko categorizes under AI (not AI Agents), consistent with infrastructure tooling positioning rather than an agent personality token.',
+                'Maintains separate branding and web presence at moltbunker.com, indicating the team treats this as a standalone product.',
+                'Primary risks include extremely low liquidity, competition with established cloud providers (AWS, Railway, Render), no disclosed pricing model, and smallest market cap in the portfolio.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/molt-bunker'},
+                {label:'Website',url:'https://moltbunker.com/'},
+                {label:'Twitter/X',url:'https://x.com/moltbunker'}
+            ]
+        },
+        'clawcloudx':{
+            points:[
+                'ClawCloudX (CLOUDX) is the token for Claw Cloud - "Autonomous Cloud Infrastructure for AI Agents." Purpose-built cloud computing for AI agent workloads within the OpenClaw ecosystem.',
+                'CoinGecko categorizes under AI Framework and Clanker Ecosystem. The only token in the portfolio with the AI Framework tag, positioning it as foundational technology.',
+                'Competitive overlap with MOLT BUNKER, though ClawCloudX positions more broadly as "cloud infrastructure" (storage, networking, compute) rather than just runtime hosting.',
+                'At approximately $423K market cap with ~$88K daily volume, the smallest token in the tracked portfolio. Volume-to-mcap ratio of roughly 21% indicates thin trading.',
+                'Primary risks include lowest market cap and volume creating severe liquidity constraints, direct competition with MOLT BUNKER, no technical documentation or GitHub, and the capital-intensive nature of cloud infrastructure at sub-$500K market cap.'
+            ],
+            links:[
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/clawcloudx'},
+                {label:'Website',url:'https://clawcloud.co/'},
+                {label:'Twitter/X',url:'https://x.com/clawcloudx'}
+            ]
+        }
+    };
+
     function showModal(id){
         var t=allTokens.find(function(x){return x.id===id});if(!t)return;
         var c24=t.price_change_percentage_24h;var c7d=t.price_change_percentage_7d_in_currency;
+        var memo=MEMO_DATA[id];
         var m=document.getElementById('modal');
-        m.innerHTML='<button class="modal-close" onclick="closeModal()">&times;</button>'+
+        var html='<button class="modal-close" onclick="closeModal()">&times;</button>'+
             '<div class="modal-token-head">'+(t.image?'<img src="'+t.image+'" alt="">':'')+'<div><div class="modal-ticker">'+t.symbol.toUpperCase()+'</div><div class="modal-name">'+t.name+'</div></div></div>'+
             '<div class="modal-stats">'+
             '<div class="modal-stat"><div class="modal-stat-val">'+fmtUsd(t.market_cap)+'</div><div class="modal-stat-lbl">Market Cap</div></div>'+
@@ -310,8 +440,22 @@
             '<div class="modal-stat"><div class="modal-stat-val">'+fmtUsd(t.current_price)+'</div><div class="modal-stat-lbl">Price</div></div>'+
             '</div>'+
             '<div style="margin-bottom:.5rem"><span style="font-size:.8rem;color:var(--text-muted)">ATH:</span> <span style="font-family:Fragment Mono,monospace;font-size:.85rem">'+fmtUsd(t.ath)+'</span></div>'+
-            '<div style="margin-bottom:1rem"><span style="font-size:.8rem;color:var(--text-muted)">ATL:</span> <span style="font-family:Fragment Mono,monospace;font-size:.85rem">'+fmtUsd(t.atl)+'</span></div>'+
-            '<a class="modal-link" href="https://www.coingecko.com/en/coins/'+t.id+'" target="_blank" rel="noopener">View on CoinGecko &rarr;</a>';
+            '<div style="margin-bottom:1rem"><span style="font-size:.8rem;color:var(--text-muted)">ATL:</span> <span style="font-family:Fragment Mono,monospace;font-size:.85rem">'+fmtUsd(t.atl)+'</span></div>';
+        if(memo){
+            html+='<div class="modal-memo"><h3>Research Memo</h3><ul class="modal-memo-list">';
+            memo.points.forEach(function(p){html+='<li>'+p+'</li>'});
+            html+='</ul>';
+            if(memo.links&&memo.links.length){
+                html+='<div class="modal-memo-links">';
+                memo.links.forEach(function(l){html+='<a href="'+l.url+'" target="_blank" rel="noopener">'+l.label+'</a>'});
+                html+='</div>';
+            }
+            html+='<div class="modal-disclaimer">Not financial advice. Data sourced from CoinGecko. Market data is approximate and may be delayed.</div>';
+            html+='</div>';
+        }else{
+            html+='<a class="modal-link" href="https://www.coingecko.com/en/coins/'+t.id+'" target="_blank" rel="noopener">View on CoinGecko &rarr;</a>';
+        }
+        m.innerHTML=html;
         document.getElementById('modal-overlay').classList.add('active');
     }
     function closeModal(){document.getElementById('modal-overlay').classList.remove('active')}

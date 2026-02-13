@@ -18,6 +18,7 @@
         body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;transition:background .3s,color .3s}
         h1,h2,h3,.stat-number{font-family:'Fragment Mono',monospace}
         .accent{background:linear-gradient(135deg,var(--accent-start),var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .underline-accent{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:6px;text-decoration-thickness:2px}
         .sammy-banner{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 8%,var(--bg)),color-mix(in srgb,var(--accent) 10%,var(--bg)));border-bottom:1px solid color-mix(in srgb,var(--accent) 15%,var(--border));padding:.4rem 1.5rem;display:flex;align-items:center;font-size:.75rem}
         .sammy-banner a{color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:.4rem;font-weight:500;transition:color .2s}
         .sammy-banner a:hover{color:color-mix(in srgb,var(--accent) 70%,var(--text))}
@@ -27,11 +28,11 @@
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
         header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
         nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
-        .nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:'Fragment Mono',monospace;font-size:1.1rem;font-weight:400}
-        .nav-brand svg{width:28px;height:28px}
+        .nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:'Fragment Mono',monospace;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase}
+        .nav-brand svg{width:24px;height:24px}
         .nav-links{display:flex;align-items:center;gap:1.5rem}
-        .nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.5px;transition:color .2s}
-        .nav-link:hover,.nav-link.active{color:var(--text)}
+        .nav-link{color:var(--text-sec);text-decoration:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:1px;text-transform:uppercase;padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+        .nav-link:hover,.nav-link.active{color:var(--text);border-bottom-color:var(--text)}
         .submit-btn{border:1px solid var(--text-sec);background:transparent;color:var(--text);padding:.35rem .85rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:.8rem;cursor:pointer;transition:all .2s}
         .submit-btn:hover{background:var(--text);color:var(--bg)}
         .theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.35rem .5rem;border-radius:6px;font-size:.85rem;transition:all .2s}
@@ -39,9 +40,9 @@
         .hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:.5rem}
         .hamburger svg{width:24px;height:24px}
         .hero{max-width:1200px;margin:0 auto;padding:4rem 1.5rem 2rem}
-        .hero-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
-        .hero h1{font-size:clamp(24px,3.5vw,40px);font-weight:400;line-height:1.2;margin-bottom:1rem}
-        .hero-sub{font-size:15px;color:var(--text-sec);max-width:640px;line-height:1.6}
+        .hero-label{font-family:'Fragment Mono',monospace;font-size:clamp(11px,1.2vw,13px);color:var(--text-muted);text-transform:uppercase;letter-spacing:3px;margin-bottom:1.25rem}
+        .hero h1{font-family:'Fragment Mono',monospace;font-size:clamp(24px,3.5vw,40px);font-weight:400;line-height:1.2;margin-bottom:1.25rem}
+        .hero-sub{font-family:'Inter',sans-serif;font-size:clamp(14px,1.5vw,16px);color:var(--text-sec);max-width:640px;line-height:1.7;letter-spacing:.2px}
         .stats{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 2rem;display:flex;gap:1rem;flex-wrap:wrap}
         .stat-box{display:flex;align-items:center;gap:1rem;border:1px solid var(--border);border-radius:8px;padding:.6rem 1.25rem;font-family:'Fragment Mono',monospace;font-size:.85rem}
         .stat-box-label{color:var(--text-muted);font-size:.65rem;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
@@ -143,6 +144,7 @@
             <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">HOME</a>
+                <a href="memos/index.html" class="nav-link">MEMOS</a>
                 <a href="feed.html" class="nav-link">FEED</a>
                 
                 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">&#9728;</button>
@@ -152,8 +154,8 @@
 
     <div class="hero">
         <div class="hero-label">ClawTracker</div>
-        <h1>OpenClaw <span class="accent">Token Index.</span></h1>
-        <p class="hero-sub">Live market data for public tokens in the OpenClaw and Moltbook ecosystem. Prices update every 60 seconds via CoinGecko.</p>
+        <h1>Tokens powered by <span class="underline-accent">OpenClaw</span></h1>
+        <p class="hero-sub">Live market data for public tokens in the OpenClaw and Moltbook ecosystem. Tokens curated by <a href="https://khala.io" target="_blank" rel="noopener" style="color:var(--text-sec);text-decoration:underline;text-underline-offset:3px">Khala Research</a>.</p>
     </div>
     <div class="stats">
         <div class="stat-box"><span class="stat-box-label">Market Cap</span><span class="stat-box-val" id="stat-mcap">--</span></div>

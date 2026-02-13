@@ -27,11 +27,11 @@
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
         header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
         nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
-        .nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:'Fragment Mono',monospace;font-size:1.1rem;font-weight:400}
-        .nav-brand svg{width:28px;height:28px}
+        .nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:'Fragment Mono',monospace;font-size:13px;font-weight:400;letter-spacing:2px;text-transform:uppercase}
+        .nav-brand svg{width:24px;height:24px}
         .nav-links{display:flex;align-items:center;gap:1.5rem}
-        .nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.5px;transition:color .2s}
-        .nav-link:hover,.nav-link.active{color:var(--text)}
+        .nav-link{color:var(--text-sec);text-decoration:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:1px;text-transform:uppercase;padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+        .nav-link:hover,.nav-link.active{color:var(--text);border-bottom-color:var(--text)}
         .submit-btn{border:1px solid var(--text-sec);background:transparent;color:var(--text);padding:.35rem .85rem;border-radius:6px;text-decoration:none;font-weight:500;font-size:.8rem;cursor:pointer;transition:all .2s}
         .submit-btn:hover{background:var(--text);color:var(--bg)}
         .theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.35rem .5rem;border-radius:6px;font-size:.85rem;transition:all .2s}
@@ -39,9 +39,9 @@
         .hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:.5rem}
         .hamburger svg{width:24px;height:24px}
         .hero{max-width:1200px;margin:0 auto;padding:4rem 1.5rem 2rem}
-        .hero-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem}
-        .hero h1{font-size:clamp(24px,3.5vw,40px);font-weight:400;line-height:1.2;margin-bottom:1rem}
-        .hero-sub{font-size:15px;color:var(--text-sec);max-width:640px;line-height:1.6}
+        .hero-label{font-family:'Fragment Mono',monospace;font-size:clamp(11px,1.2vw,13px);color:var(--text-muted);text-transform:uppercase;letter-spacing:3px;margin-bottom:1.25rem}
+        .hero h1{font-family:'Fragment Mono',monospace;font-size:clamp(24px,3.5vw,40px);font-weight:400;line-height:1.2;margin-bottom:1.25rem}
+        .hero-sub{font-family:'Inter',sans-serif;font-size:clamp(14px,1.5vw,16px);color:var(--text-sec);max-width:640px;line-height:1.7;letter-spacing:.2px}
         .feed-controls{max-width:1200px;margin:0 auto;padding:0 1.5rem 1.5rem;display:flex;gap:.75rem;flex-wrap:wrap}
         .filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
         .filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
@@ -116,6 +116,7 @@
             <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
             <div class="nav-links">
                 <a href="index.html" class="nav-link">HOME</a>
+                <a href="memos/index.html" class="nav-link">MEMOS</a>
                 <a href="feed.html" class="nav-link active">FEED</a>
                 
                 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">&#9728;</button>

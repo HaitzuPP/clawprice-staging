@@ -46,7 +46,8 @@
         .filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
         .filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
         .filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
-        .feed-grid{max-width:800px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:1.5rem}
+        .feed-grid{max-width:900px;margin:0 auto;padding:0 1.5rem 3rem;display:grid;grid-template-columns:1fr;gap:2rem}
+        .feed-grid iframe{width:100% !important;max-width:100% !important;min-width:100% !important}
         .tweet-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color .2s;cursor:pointer;text-decoration:none;color:var(--text);display:flex;flex-direction:column}
         .tweet-card:hover{border-color:var(--border-hover)}
         .tweet-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem}
@@ -204,6 +205,17 @@
     }
 
     renderFeed();
+
+    /* Force Twitter iframes to full width when they load */
+    var obs=new MutationObserver(function(muts){
+        muts.forEach(function(m){
+            m.addedNodes.forEach(function(n){
+                if(n.tagName==='IFRAME'){n.style.width='100%';n.style.maxWidth='100%'}
+                if(n.querySelectorAll){n.querySelectorAll('iframe').forEach(function(f){f.style.width='100%';f.style.maxWidth='100%'})}
+            });
+        });
+    });
+    obs.observe(document.getElementById('feed-grid'),{childList:true,subtree:true});
     </script>
 </body>
 </html>

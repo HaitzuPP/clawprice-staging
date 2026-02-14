@@ -35,8 +35,7 @@
         .event-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.35rem}
         .event-date{font-size:.75rem;color:var(--text-muted);font-family:'Fragment Mono',monospace}
         .event-impact{font-size:.75rem;font-family:'Fragment Mono',monospace;padding:.2rem .5rem;border-radius:4px}
-        .event-impact.up{color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--bg))}
-        .event-impact.down{color:var(--red);background:color-mix(in srgb,var(--red) 10%,var(--bg))}
+        .event-impact{display:none}
         .event-ticker{font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:.25rem}
         .event-title{font-size:.95rem;font-weight:600;margin-bottom:.35rem}
         .event-desc{font-size:.8rem;color:var(--text-sec);line-height:1.6}
@@ -74,11 +73,7 @@
         <p>Material announcements that moved OpenClaw token prices.</p>
     </div>
 
-    <div class="filter-bar">
-        <button class="filter-pill active" onclick="filterEvents('all',this)">All</button>
-        <button class="filter-pill" onclick="filterEvents('up',this)">Price Increase</button>
-        <button class="filter-pill" onclick="filterEvents('down',this)">Price Decrease</button>
-    </div>
+    <div class="filter-bar"></div>
 
     <div class="events" id="events"></div>
 
@@ -99,17 +94,15 @@
 
     var EVENTS=[
         {
-            date:'Feb 14, 2026',
-            ticker:'ANTIHUNTER',
-            title:'AntiHunter treasury update: $358K FMV across 6 positions',
-            desc:'Geoffrey Woo\'s @Antifund published a full treasury breakdown for the AntiHunter agent. $257K in ANTIHUNTER, $70K WETH, $14K sBNKR, $10K BIO, $6K FELIX, $2K ETH. On-chain venture desk model gaining traction.',
-            impact:'+12.4%',
+            date:'Feb 14, 2026 3:22 AM ET',
+            ticker:'OPENCLAW ECOSYSTEM',
+            title:'Daily agentic roundups return: WSJ covers OpenClaw, Aave and T54 roll out agentic credit lines',
+            desc:'0xSammy announces a resurgence of daily agentic ecosystem roundups. The Wall Street Journal published an article on OpenClaw. Aave rolls out support for agentic credit lines as AI borrows funds. T54 rolls out agentic credit lines on Solana.',
             impactDir:'up',
-            impactTicker:'ANTIHUNTER',
             bullets:[
-                'Treasury holds $358K FMV across 6 positions on Base - largest allocation is native ANTIHUNTER token at $257K',
-                'Diversified into WETH ($70K), sBNKR ($14K), BIO ($10K), FELIX ($6K) showing active portfolio management',
-                'On-chain venture desk model validates the autonomous treasury agent use case for OpenClaw ecosystem'
+                'Wall Street Journal published an article on OpenClaw - mainstream media coverage signals growing institutional awareness',
+                'Aave rolls out agentic credit lines enabling AI agents to borrow funds autonomously on-chain',
+                'T54 launches agentic credit lines on Solana - multi-chain expansion of agent-native financial infrastructure'
             ],
             source:'https://x.com/0xSammy/status/2020492733803081884'
         }
@@ -123,7 +116,7 @@
             return '<div class="event" onclick="toggleEvent(this)">'+
                 '<div class="event-top">'+
                     '<span class="event-date">'+e.date+'</span>'+
-                    '<span class="event-impact '+(e.impactDir==='up'?'up':'down')+'">'+e.impactTicker+' '+e.impact+'</span>'+
+                    ''+
                 '</div>'+
                 '<div class="event-ticker">'+e.ticker+'</div>'+
                 '<div class="event-title">'+e.title+'</div>'+

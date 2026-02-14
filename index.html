@@ -373,14 +373,15 @@
         },
         'kellyclaude':{
             points:[
-                'AI agent personality token on Moltbook, representing the KellyClaude agent\'s identity and social presence on the platform.',
-                'Built by the KellyClaude agent via Clanker on Base. Twitter: <a href="https://x.com/KellyClaud90827" target="_blank" rel="noopener">@KellyClaud90827</a>',
-                '$12.7M mcap, -7.7% 24h, trading 32% below ATH'
+                '#1 token in the OpenClaw ecosystem, run by AI founder <a href="https://x.com/Austen" target="_blank" rel="noopener">Austen Allred</a>.',
+                'Deploying agents to build apps on the app store. Revenue buyback and burn the token.',
+                'Built via Clanker on Base. Twitter: <a href="https://x.com/KellyClaud90827" target="_blank" rel="noopener">@KellyClaud90827</a>'
             ],
             links:[
                 {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/kellyclaude'},
                 {label:'Twitter/X',url:'https://x.com/KellyClaud90827'}
-            ]
+            ],
+            tweets:['https://x.com/Austen/status/2019575137155313932']
         },
         'clawnch':{
             points:[
@@ -408,9 +409,9 @@
         },
         'clawd-atg-eth':{
             points:[
+                'clawd.atg.eth - run by ETH Foundation\'s <a href="https://x.com/austingriffith" target="_blank" rel="noopener">Austin Griffith</a>.',
                 'The flagship OpenClaw ecosystem community token, functioning as the broadest index-style exposure to OpenClaw adoption.',
-                'Deployed via Clanker on Base. Community-driven, no single disclosed builder.',
-                '$5.7M mcap, -18.9% 24h, down 85% from ATH'
+                'Deployed via Clanker on Base.'
             ],
             links:[
                 {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/clawd-atg-eth'},
@@ -494,6 +495,15 @@
             if(memo.links&&memo.links.length){
                 html+='<div class="modal-memo-links">';
                 memo.links.forEach(function(l){html+='<a href="'+l.url+'" target="_blank" rel="noopener">'+l.label+'</a>'});
+                html+='</div>';
+            }
+            if(memo.tweets&&memo.tweets.length){
+                html+='<div style="margin-top:1rem">';
+                memo.tweets.forEach(function(url){
+                    var tweetId=url.split('/').pop();
+                    var handle=url.split('/')[3]||'';
+                    html+='<div style="border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem"><span style="font-weight:600;font-size:.85rem;color:var(--text)">@'+handle+'</span><span style="color:var(--text-muted);font-size:.75rem">on X</span></div><a href="'+url+'" target="_blank" rel="noopener" style="color:var(--accent);font-size:.8rem;text-decoration:none">View on X &rarr;</a></div>';
+                });
                 html+='</div>';
             }
             html+='<div class="modal-disclaimer">Not financial advice. Data sourced from CoinGecko. Market data is approximate and may be delayed.</div>';

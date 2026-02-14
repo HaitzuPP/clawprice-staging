@@ -36,6 +36,9 @@
         .event-date{font-size:.75rem;color:var(--text-muted);font-family:'Fragment Mono',monospace}
         .event-impact{font-size:.75rem;font-family:'Fragment Mono',monospace;padding:.2rem .5rem;border-radius:4px}
         .event-impact{display:none}
+        .event-author{font-size:.75rem;color:var(--text-muted);margin-bottom:.25rem}
+        .event-author a{color:var(--accent);text-decoration:none}
+        .event-author a:hover{text-decoration:underline}
         .event-ticker{font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:.25rem}
         .event-title{font-size:.95rem;font-weight:600;margin-bottom:.35rem}
         .event-desc{font-size:.8rem;color:var(--text-sec);line-height:1.6}
@@ -96,6 +99,8 @@
         {
             date:'Feb 14, 2026 3:22 AM ET',
             ticker:'OPENCLAW ECOSYSTEM',
+            author:'0xSammy',
+            authorUrl:'https://x.com/0xSammy',
             title:'Daily agentic roundups return: WSJ covers OpenClaw, Aave and T54 roll out agentic credit lines',
             desc:'0xSammy announces a resurgence of daily agentic ecosystem roundups. The Wall Street Journal published an article on OpenClaw. Aave rolls out support for agentic credit lines as AI borrows funds. T54 rolls out agentic credit lines on Solana.',
             impactDir:'up',
@@ -118,6 +123,7 @@
                     '<span class="event-date">'+e.date+'</span>'+
                     ''+
                 '</div>'+
+                (e.author?'<div class="event-author"><a href="'+e.authorUrl+'" target="_blank" rel="noopener">@'+e.author+'</a></div>':'')+
                 '<div class="event-ticker">'+e.ticker+'</div>'+
                 '<div class="event-title">'+e.title+'</div>'+
                 '<div class="event-desc">'+e.desc+'</div>'+

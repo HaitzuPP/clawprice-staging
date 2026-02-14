@@ -95,7 +95,9 @@
         .td-rank{color:var(--text-muted);font-size:.8rem;font-family:'Fragment Mono',monospace}
         .td-token{display:flex;align-items:center;gap:.5rem}
         .td-token img{width:24px;height:24px;border-radius:50%}
-        .td-token-name{font-weight:500}
+        .td-token-name{font-weight:500;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border-hover)}
+        .td-token-name:hover{text-decoration-color:var(--text)}
+        .td-desc{font-size:.75rem;color:var(--text-muted);max-width:250px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
         .td-symbol{font-family:'Fragment Mono',monospace;font-size:.8rem;color:var(--accent)}
         .td-price{font-family:'Fragment Mono',monospace;font-size:.8rem;white-space:nowrap}
         .td-change{font-family:'Fragment Mono',monospace;font-size:.8rem;white-space:nowrap}
@@ -127,6 +129,9 @@
         .modal-memo-links{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
         .modal-memo-links a{color:var(--accent);text-decoration:none;font-size:.75rem;padding:.3rem .65rem;border:1px solid var(--accent);border-radius:6px;transition:all .2s}
         .modal-memo-links a:hover{background:var(--accent);color:#fff}
+        a{color:var(--accent)}
+        .modal-memo-list a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+        .modal-memo-list a:hover{opacity:.8}
         .modal-disclaimer{font-size:.7rem;color:var(--text-muted);margin-top:1rem;padding:.75rem;background:var(--bg-card);border:1px solid var(--border);border-radius:6px}
         footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center}
         .footer-text{font-size:.75rem;color:var(--text-muted)}
@@ -137,10 +142,11 @@
         .loading-msg{text-align:center;padding:3rem;color:var(--text-muted);font-size:.85rem}
         @keyframes pulsedot{0%,100%{opacity:.4}50%{opacity:1}}
         .loading-dot{animation:pulsedot 1.5s infinite}
+        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        .skel{height:12px;border-radius:4px;background:linear-gradient(90deg,var(--border) 25%,var(--border-hover) 50%,var(--border) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
         @media(max-width:768px){
-            .hamburger{display:block}
-            .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}
-            .nav-links.open{display:flex}
+            .hamburger{display:none}
+            .nav-links{display:flex}
             .hero{padding:2.5rem 1.5rem 1.5rem}
             .stats{gap:1.5rem}
             .controls{gap:.5rem}
@@ -170,26 +176,23 @@
             </a>
             <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">HOME</a>
-                <a href="feed.html" class="nav-link">FEED</a>
-                
                 <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">&#9728;</button>
             </div>
         </nav>
     </header>
 
     <div class="hero">
-        <div class="hero-label">Tokens curated by <a href="https://x.com/khalaResearch" target="_blank" rel="noopener" style="color:var(--text-sec);text-decoration:underline;text-underline-offset:2px">Khala Research</a></div>
+        <div class="hero-label">Tracked by <a href="https://x.com/khalaResearch" target="_blank" rel="noopener" style="color:var(--text-sec);text-decoration:underline;text-underline-offset:2px">Khala Research</a></div>
         <h1>Tokens powered by <span class="underline-accent">OpenClaw</span></h1>
-        <p class="hero-sub">Live market data for public tokens in the OpenClaw and Moltbook ecosystem. Tokens curated by <a href="https://khala.io" target="_blank" rel="noopener" style="color:var(--text-sec);text-decoration:underline;text-underline-offset:3px">Khala Research</a>.</p>
+        <p class="hero-sub">Live market data for public tokens in the OpenClaw ecosystem.</p>
     </div>
     <div class="stats">
-        <div class="stat-box"><span class="stat-box-label">Market Cap</span><span class="stat-box-val" id="stat-mcap">--</span></div>
-        <div class="stat-box" id="stat-top-gain"><span class="stat-box-label">Top Mover (24h)</span><span class="stat-box-val">--</span></div>
-        <div class="stat-box" id="stat-top-loss"><span class="stat-box-label">Biggest Drop (24h)</span><span class="stat-box-val">--</span></div>
+        <div class="stat-box"><span class="stat-box-label">Total FDV</span><span class="stat-box-val" id="stat-mcap">--</span></div>
+        <div class="stat-box" id="stat-top-gain"><span class="stat-box-label">Top 24H Mover</span><span class="stat-box-val">--</span></div>
+        <div class="stat-box" id="stat-top-loss"><span class="stat-box-label">Biggest 24H Drop</span><span class="stat-box-val">--</span></div>
     </div>
     <div id="newly-added" style="background:color-mix(in srgb,var(--accent) 5%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 15%,var(--border));border-radius:10px;padding:1rem 1.25rem;margin:0 auto 1.5rem;display:none;max-width:700px;padding-left:1.5rem;padding-right:1.5rem">
-        <div style="font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">Newly Added</div>
+        <div style="font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">New Listings</div>
         <div id="newly-added-list" style="display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;color:var(--text-sec)"></div>
     </div>
     <div class="controls">
@@ -209,7 +212,7 @@
                 </tr>
             </thead>
             <tbody id="table-body">
-                <tr><td colspan="7" class="loading-msg"><span class="loading-dot">Loading tokens...</span></td></tr>
+<script>document.write(Array(8).fill('<tr>'+['3rem','10rem','4rem','4rem','5rem','5rem','5rem'].map(function(w,i){return'<td'+(i===3||i===5?' class="hide-mobile"':'')+'><div class="skel" style="width:'+w+'"></div></td>'}).join('')+'</tr>').join(''))</script>
             </tbody>
         </table>
     </div>
@@ -225,6 +228,7 @@
     </div>
     <footer>
         <p class="footer-text">&copy; 2026 ClawPrice. All rights reserved.</p>
+        <p class="footer-text" style="margin-top:.35rem">Powered by <a href="https://www.coingecko.com/en/api" target="_blank" rel="noopener">CoinGecko API</a></p>
         <p class="footer-text" style="margin-top:.5rem"><a href="https://x.com/khalaResearch" target="_blank" rel="noopener" class="built-by">Built by Khala Research</a></p>
     </footer>
 
@@ -263,6 +267,7 @@
         return merged;
     }
 
+    function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
     function fmtUsd(n){
         if(n==null)return'--';
         if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';
@@ -278,13 +283,13 @@
     function updateStats(){
         var total=0;var topG=null,topL=null;
         allTokens.forEach(function(t){
-            total+=(t.market_cap||0);
+            total+=(t.fully_diluted_valuation||0);
             var c=t.price_change_percentage_24h;
             if(c!=null){if(!topG||c>topG.price_change_percentage_24h)topG=t;if(!topL||c<topL.price_change_percentage_24h)topL=t}
         });
         document.getElementById('stat-mcap').textContent=fmtUsd(total);
-        if(topG){var gc=topG.price_change_percentage_24h;document.getElementById('stat-top-gain').innerHTML='<span class="stat-box-label">Top Mover</span><a href="https://www.coingecko.com/en/coins/'+topG.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+topG.symbol.toUpperCase()+'</span><span class="stat-box-pct" style="color:var(--green)">'+fmtChange(gc)+'</span></a>'}
-        if(topL){var lc=topL.price_change_percentage_24h;document.getElementById('stat-top-loss').innerHTML='<span class="stat-box-label">Biggest Drop</span><a href="https://www.coingecko.com/en/coins/'+topL.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+topL.symbol.toUpperCase()+'</span><span class="stat-box-pct" style="color:var(--red)">'+fmtChange(lc)+'</span></a>'}
+        if(topG){var gc=topG.price_change_percentage_24h;document.getElementById('stat-top-gain').innerHTML='<span class="stat-box-label">Top 24H Mover</span><a href="https://www.coingecko.com/en/coins/'+topG.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+esc(topG.symbol.toUpperCase())+'</span><span class="stat-box-pct" style="color:var(--green)">'+fmtChange(gc)+'</span></a>'}
+        if(topL){var lc=topL.price_change_percentage_24h;document.getElementById('stat-top-loss').innerHTML='<span class="stat-box-label">Biggest 24H Drop</span><a href="https://www.coingecko.com/en/coins/'+topL.id+'" target="_blank" rel="noopener"><span class="stat-box-val">'+esc(topL.symbol.toUpperCase())+'</span><span class="stat-box-pct" style="color:var(--red)">'+fmtChange(lc)+'</span></a>'}
     }
 
     function getFiltered(){
@@ -306,6 +311,7 @@
             else if(col==='change24h'){va=a.price_change_percentage_24h||0;vb=b.price_change_percentage_24h||0}
             else if(col==='change7d'){va=a.price_change_percentage_7d_in_currency||0;vb=b.price_change_percentage_7d_in_currency||0}
             else if(col==='mcap'){va=a.market_cap||0;vb=b.market_cap||0}
+            else if(col==='fdv'){va=a.fully_diluted_valuation||0;vb=b.fully_diluted_valuation||0}
             else if(col==='vol'){va=a.total_volume||0;vb=b.total_volume||0}
             else{va=0;vb=0}
             if(typeof va==='string')return asc?va.localeCompare(vb):vb.localeCompare(va);
@@ -317,7 +323,7 @@
     function renderTable(){
         var filtered=sortTokens(getFiltered());
         var tbody=document.getElementById('table-body');
-        if(filtered.length===0){tbody.innerHTML='<tr><td colspan="7" class="loading-msg">No tokens found.</td></tr>';return}
+        if(filtered.length===0){tbody.innerHTML='<tr><td colspan="8" class="loading-msg">No tokens found.</td></tr>';return}
         var html='';
         filtered.forEach(function(t,i){
             var c24=t.price_change_percentage_24h;
@@ -326,7 +332,8 @@
             var c7dcls=c7d>=0?'up':'down';
             html+='<tr onclick="showModal(\''+t.id+'\')">';
             html+='<td class="td-rank">'+(i+1)+'</td>';
-            html+='<td><div class="td-token">'+(t.image?'<img src="'+t.image+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<span class="td-token-name">'+t.name+'</span> <span class="td-symbol">'+t.symbol.toUpperCase()+'</span></div></td>';
+            var memo=MEMO_DATA[t.id];var desc=memo&&memo.points&&memo.points[0]?memo.points[0].replace(/<[^>]+>/g,''):'';
+            html+='<td><div class="td-token">'+(t.image&&t.image.startsWith('https://')?'<img src="'+esc(t.image)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<div><span class="td-token-name">'+esc(t.name)+'</span> <span class="td-symbol">'+esc(t.symbol.toUpperCase())+'</span></div></div></td>';
             html+='<td class="td-change '+(c24!=null?c24cls:'')+'">'+fmtChange(c24)+'</td>';
             html+='<td class="td-change hide-mobile '+(c7d!=null?c7dcls:'')+'">'+fmtChange(c7d)+'</td>';
             html+='<td class="td-cap">'+fmtUsd(t.market_cap)+'</td>';
@@ -338,10 +345,11 @@
         document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleTimeString()+' - Auto-refreshes every 60s';
     }
 
-    function sortBy(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=col==='name'||col==='symbol'}renderTable()}
+    function sortBy(col){if(sortCol===col)sortAsc=!sortAsc;else{sortCol=col;sortAsc=col==='name'||col==='symbol'}updateSortHeaders();renderTable()}
+    function updateSortHeaders(){document.querySelectorAll('thead th.sortable').forEach(function(th){var col=th.getAttribute('onclick').match(/sortBy\('([^']+)'\)/);if(!col)return;col=col[1];var base=th.textContent.replace(/\s*[▲▼]/,'');th.textContent=col===sortCol?base+' '+(sortAsc?'▲':'▼'):base})}
 
     var NEWLY_ADDED=[
-        {id:'felix-3',date:'Feb 14, 2026',fdvAtAdd:'$2.4M',note:'AI agent crafting platform on Base with $62K revenue since launch'}
+        {id:'antihunter',date:'Feb 14, 2026',note:'On-chain venture desk and autonomous treasury manager on Base'}
     ];
 
     var MEMO_DATA={
@@ -373,15 +381,14 @@
         },
         'kellyclaude':{
             points:[
-                '#1 token in the OpenClaw ecosystem, run by AI founder <a href="https://x.com/Austen" target="_blank" rel="noopener">Austen Allred</a>.',
-                'Deploying agents to build apps on the app store. Revenue buyback and burn the token.',
-                'Built via Clanker on Base. Twitter: <a href="https://x.com/KellyClaud90827" target="_blank" rel="noopener">@KellyClaud90827</a>'
+                'AI agent personality token on Moltbook, representing the KellyClaude agent\'s identity and social presence on the platform.',
+                'Built by the KellyClaude agent via Clanker on Base. Twitter: <a href="https://x.com/KellyClaud90827" target="_blank" rel="noopener">@KellyClaud90827</a>',
+                '$12.7M mcap, -7.7% 24h, trading 32% below ATH'
             ],
             links:[
                 {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/kellyclaude'},
                 {label:'Twitter/X',url:'https://x.com/KellyClaud90827'}
-            ],
-            tweets:[{handle:'Austen',name:'Austen Allred',text:'KellyClaude is deploying agents to build apps on the app store. Revenue goes to buyback and burn the token.',url:'https://x.com/Austen/status/2019575137155313932'}]
+            ]
         },
         'clawnch':{
             points:[
@@ -409,9 +416,9 @@
         },
         'clawd-atg-eth':{
             points:[
-                'clawd.atg.eth - run by ETH Foundation\'s <a href="https://x.com/austingriffith" target="_blank" rel="noopener">Austin Griffith</a>.',
                 'The flagship OpenClaw ecosystem community token, functioning as the broadest index-style exposure to OpenClaw adoption.',
-                'Deployed via Clanker on Base.'
+                'Deployed via Clanker on Base. Community-driven, no single disclosed builder.',
+                '$5.7M mcap, -18.9% 24h, down 85% from ATH'
             ],
             links:[
                 {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/clawd-atg-eth'},
@@ -420,12 +427,13 @@
         },
         'fomolt':{
             points:[
-                'Community momentum token within the Moltbook ecosystem, a speculation-layer play on MOLT sentiment.',
-                'Community-deployed via Clanker. No disclosed team.',
-                '$925K mcap, -16.4% 24h, down 31% from ATH'
+                'AI agent trading arena on Base. Agents compete on a leaderboard using OpenClaw skills in autonomous trading simulations.',
+                'Real product with active development. Twitter: <a href="https://x.com/fomoltapp" target="_blank" rel="noopener">@fomoltapp</a>',
+                'Categorized as AI Agents on Base. Consistent volume relative to market cap, suggesting organic trading activity.'
             ],
             links:[
-                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/fomolt'}
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/fomolt'},
+                {label:'Twitter/X',url:'https://x.com/fomoltapp'}
             ]
         },
         'molt-bunker':{
@@ -461,12 +469,13 @@
         },
         'x402guard':{
             points:[
-                'Security and audit token aligned with the x402 payment protocol standard for AI agent transactions.',
-                'Community-deployed via Clanker. No disclosed team.',
-                '$354K mcap, -46.4% 24h, down 72% from ATH. Severe single-day drawdown'
+                'Pre-install security auditor for AI agent skills. Scans for malware, credential theft, and risky permissions, returning a risk score (0-100).',
+                'Cybersecurity + AI Agents category on Base. Functioning product that audits OpenClaw skills before installation. Twitter: <a href="https://x.com/x402guard" target="_blank" rel="noopener">@x402guard</a>',
+                'One of the few tokens with a clear utility tie to the OpenClaw ecosystem security layer.'
             ],
             links:[
-                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/x402guard'}
+                {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/x402guard'},
+                {label:'Twitter/X',url:'https://x.com/x402guard'}
             ]
         }
     };
@@ -477,7 +486,7 @@
         var memo=MEMO_DATA[id];
         var m=document.getElementById('modal');
         var html='<button class="modal-close" onclick="closeModal()">&times;</button>'+
-            '<div class="modal-token-head">'+(t.image?'<img src="'+t.image+'" alt="">':'')+'<div><div class="modal-ticker">'+t.symbol.toUpperCase()+'</div><div class="modal-name">'+t.name+'</div></div></div>'+
+            '<div class="modal-token-head">'+(t.image&&t.image.startsWith('https://')?'<img src="'+esc(t.image)+'" alt="">':'')+'<div><div class="modal-ticker">'+esc(t.symbol.toUpperCase())+'</div><div class="modal-name">'+esc(t.name)+'</div></div></div>'+
             '<div class="modal-stats">'+
             '<div class="modal-stat"><div class="modal-stat-val">'+fmtUsd(t.market_cap)+'</div><div class="modal-stat-lbl">Market Cap</div></div>'+
             '<div class="modal-stat"><div class="modal-stat-val">'+fmtUsd(t.fully_diluted_valuation)+'</div><div class="modal-stat-lbl">FDV</div></div>'+
@@ -497,21 +506,6 @@
                 memo.links.forEach(function(l){html+='<a href="'+l.url+'" target="_blank" rel="noopener">'+l.label+'</a>'});
                 html+='</div>';
             }
-            if(memo.tweets&&memo.tweets.length){
-                html+='<div style="margin-top:1rem">';
-                memo.tweets.forEach(function(tw){
-                    var initial=tw.name?tw.name.charAt(0).toUpperCase():'X';
-                    html+='<div style="border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:.75rem;background:var(--bg-card)">';
-                    html+='<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">';
-                    html+='<div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;color:#fff;flex-shrink:0">'+initial+'</div>';
-                    html+='<div><div style="font-weight:600;font-size:.85rem;color:var(--text)">'+tw.name+'</div><div style="font-size:.75rem;color:var(--text-muted)">@'+tw.handle+'</div></div>';
-                    html+='</div>';
-                    html+='<p style="font-size:.85rem;color:var(--text-sec);line-height:1.6;margin:0 0 .75rem 0">'+tw.text+'</p>';
-                    html+='<a href="'+tw.url+'" target="_blank" rel="noopener" style="color:var(--text-muted);font-size:.75rem;text-decoration:none">View on X &rarr;</a>';
-                    html+='</div>';
-                });
-                html+='</div>';
-            }
             html+='<div class="modal-disclaimer">Not financial advice. Data sourced from CoinGecko. Market data is approximate and may be delayed.</div>';
             html+='</div>';
         }else{
@@ -523,9 +517,11 @@
     function closeModal(){document.getElementById('modal-overlay').classList.remove('active')}
     document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
 
+    var retryCount=0;var MAX_RETRIES=3;
     async function loadData(){
         var data=await fetchWithFallback();
-        if(!data){document.getElementById('table-body').innerHTML='<tr><td colspan="7" class="loading-msg">Failed to load data. Retrying...</td></tr>';setTimeout(loadData,5000);return}
+        if(!data){retryCount++;if(retryCount<=MAX_RETRIES){document.getElementById('table-body').innerHTML='<tr><td colspan="8" class="loading-msg">Failed to load data. Retrying ('+retryCount+'/'+MAX_RETRIES+')...</td></tr>';setTimeout(loadData,5000)}else{document.getElementById('table-body').innerHTML='<tr><td colspan="8" class="loading-msg">Unable to load data. <button onclick="retryCount=0;loadData()" style="background:var(--accent);color:#fff;border:none;padding:.4rem 1rem;border-radius:6px;cursor:pointer;font-family:inherit;margin-left:.5rem">Retry</button></td></tr>'}return}
+        retryCount=0;
         allTokens=data.filter(function(t){return (t.fully_diluted_valuation||0)>=250000});
         updateStats();
         renderTable();
@@ -541,8 +537,8 @@
             var t=allTokens.find(function(x){return x.id===entry.id});
             if(!t)return;
             html+='<div style="cursor:pointer;padding:.5rem 0;border-bottom:1px solid var(--border)" onclick="showModal(\''+entry.id+'\')">';
-            html+='<div><span style="color:var(--text);font-weight:500">'+t.name+'</span> <span style="color:var(--text-muted);font-size:.75rem">'+t.symbol.toUpperCase()+'</span></div>';
-            html+='<div style="font-size:.75rem;color:var(--text-muted);margin-top:.25rem">Added '+entry.date+' - FDV at listing: '+entry.fdvAtAdd+'</div>';
+            html+='<div><span style="color:var(--text);font-weight:500">'+esc(t.name)+'</span> <span style="color:var(--text-muted);font-size:.75rem">'+esc(t.symbol.toUpperCase())+'</span></div>';
+            html+='<div style="font-size:.75rem;color:var(--text-muted);margin-top:.25rem">Added '+entry.date+'</div>';
             html+='<div style="font-size:.8rem;color:var(--text-sec);margin-top:.25rem">'+entry.note+'</div>';
             html+='</div>';
         });

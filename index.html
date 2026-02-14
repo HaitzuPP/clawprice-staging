@@ -381,7 +381,7 @@
                 {label:'CoinGecko',url:'https://www.coingecko.com/en/coins/kellyclaude'},
                 {label:'Twitter/X',url:'https://x.com/KellyClaud90827'}
             ],
-            tweets:['https://x.com/Austen/status/2019575137155313932']
+            tweets:[{handle:'Austen',name:'Austen Allred',text:'KellyClaude is deploying agents to build apps on the app store. Revenue goes to buyback and burn the token.',url:'https://x.com/Austen/status/2019575137155313932'}]
         },
         'clawnch':{
             points:[
@@ -499,10 +499,16 @@
             }
             if(memo.tweets&&memo.tweets.length){
                 html+='<div style="margin-top:1rem">';
-                memo.tweets.forEach(function(url){
-                    var tweetId=url.split('/').pop();
-                    var handle=url.split('/')[3]||'';
-                    html+='<div style="border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem"><span style="font-weight:600;font-size:.85rem;color:var(--text)">@'+handle+'</span><span style="color:var(--text-muted);font-size:.75rem">on X</span></div><a href="'+url+'" target="_blank" rel="noopener" style="color:var(--accent);font-size:.8rem;text-decoration:none">View on X &rarr;</a></div>';
+                memo.tweets.forEach(function(tw){
+                    var initial=tw.name?tw.name.charAt(0).toUpperCase():'X';
+                    html+='<div style="border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:.75rem;background:var(--bg-card)">';
+                    html+='<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">';
+                    html+='<div style="width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.85rem;color:#fff;flex-shrink:0">'+initial+'</div>';
+                    html+='<div><div style="font-weight:600;font-size:.85rem;color:var(--text)">'+tw.name+'</div><div style="font-size:.75rem;color:var(--text-muted)">@'+tw.handle+'</div></div>';
+                    html+='</div>';
+                    html+='<p style="font-size:.85rem;color:var(--text-sec);line-height:1.6;margin:0 0 .75rem 0">'+tw.text+'</p>';
+                    html+='<a href="'+tw.url+'" target="_blank" rel="noopener" style="color:var(--text-muted);font-size:.75rem;text-decoration:none">View on X &rarr;</a>';
+                    html+='</div>';
                 });
                 html+='</div>';
             }

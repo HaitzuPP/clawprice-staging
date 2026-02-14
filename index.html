@@ -214,13 +214,14 @@
         <div class="hero-label">Tracked by <a href="https://x.com/khalaResearch" target="_blank" rel="noopener" style="color:var(--text-sec);text-decoration:underline;text-underline-offset:2px">Khala Research</a></div>
         <h1>Tokens powered by <span class="underline-accent">OpenClaw</span></h1>
         <p class="hero-sub">Live market data for public tokens in the OpenClaw ecosystem.</p>
+        <p class="hero-sub" style="margin-top:.75rem">DM <a href="https://x.com/0xSammy" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px">@0xSammy</a> or <a href="https://x.com/haitzu" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px">@Haitzu</a> for listing inclusion.</p>
     </div>
     <div class="stats">
         <div class="stat-box"><span class="stat-box-label">Total FDV</span><span class="stat-box-val" id="stat-mcap">--</span></div>
         <div class="stat-box" id="stat-top-gain"><span class="stat-box-label">Top 24H Mover</span><span class="stat-box-val">--</span></div>
         <div class="stat-box" id="stat-top-loss"><span class="stat-box-label">Biggest 24H Drop</span><span class="stat-box-val">--</span></div>
     </div>
-    <div id="newly-added" style="background:color-mix(in srgb,var(--accent) 5%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 15%,var(--border));border-radius:10px;padding:1rem 1.25rem;margin:0 auto 1.5rem;display:none;max-width:700px;padding-left:1.5rem;padding-right:1.5rem">
+    <div id="newly-added" style="background:color-mix(in srgb,var(--accent) 5%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 15%,var(--border));border-radius:10px;padding:1rem 1.25rem;margin:0 auto 1.5rem;display:none;max-width:1200px;padding-left:1.5rem;padding-right:1.5rem">
         <div style="font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">New Listings</div>
         <div id="newly-added-list" style="display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;color:var(--text-sec)"></div>
     </div>
@@ -378,7 +379,7 @@
     function updateSortHeaders(){document.querySelectorAll('thead th.sortable').forEach(function(th){var col=th.getAttribute('onclick').match(/sortBy\('([^']+)'\)/);if(!col)return;col=col[1];var base=th.textContent.replace(/\s*[▲▼]/,'');th.textContent=col===sortCol?base+' '+(sortAsc?'▲':'▼'):base})}
 
     var NEWLY_ADDED=[
-        {id:'antihunter',date:'Feb 14, 2026',note:'On-chain venture desk and autonomous treasury manager on Base'}
+        {id:'antihunter',date:'Feb 14, 2026',note:'On-chain venture desk and autonomous treasury manager built on Base. Operates as an OpenClaw agent that manages live positions, executes buy-and-burn operations, and publishes verifiable on-chain receipts. Built by Geoffrey Woo\'s @Antifund, backed by Logan Paul.'}
     ];
 
     var MEMO_DATA={
@@ -561,8 +562,8 @@
     var retryCount=0;var MAX_RETRIES=3;var CACHE_KEY='clawprice-cache';var CACHE_TTL=60000;
     function getCached(){try{var c=JSON.parse(localStorage.getItem(CACHE_KEY));if(c&&Date.now()-c.ts<CACHE_TTL)return c.data}catch(e){}return null}
     function setCache(data){try{localStorage.setItem(CACHE_KEY,JSON.stringify({ts:Date.now(),data:data}))}catch(e){}}
-    async function loadData(){
-        var cached=getCached();
+    async function loadData(useCache){
+        var cached=useCache!==false?getCached():null;
         var data=cached||await fetchWithFallback();
         if(data&&!cached)setCache(data);
         if(!data){retryCount++;if(retryCount<=MAX_RETRIES){document.getElementById('table-body').innerHTML='<tr><td colspan="8" class="loading-msg">Failed to load data. Retrying ('+retryCount+'/'+MAX_RETRIES+')...</td></tr>';setTimeout(loadData,5000)}else{document.getElementById('table-body').innerHTML='<tr><td colspan="8" class="loading-msg">Unable to load data. <button onclick="retryCount=0;loadData()" style="background:var(--accent);color:#fff;border:none;padding:.4rem 1rem;border-radius:6px;cursor:pointer;font-family:inherit;margin-left:.5rem">Retry</button></td></tr>'}return}
@@ -590,7 +591,7 @@
         if(html){wrap.style.display='block';el.innerHTML=html}
     }
     loadData();
-    setInterval(loadData,60000);
+    setInterval(function(){loadData(false)},60000);
     </script>
 </body>
 </html>

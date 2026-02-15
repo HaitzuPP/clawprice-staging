@@ -242,7 +242,7 @@
                     <th class="sortable" onclick="sortBy('mcap')">Market Cap</th>
                     <th class="sortable hide-mobile" onclick="sortBy('fdv')">FDV</th>
                     <th class="sortable" onclick="sortBy('vol')">Volume</th>
-                    <th class="hide-mobile">7D Chart</th>
+                    <th class="sortable hide-mobile" onclick="sortBy('spark')">7D Chart</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -348,6 +348,7 @@
             else if(col==='mcap'){va=a.market_cap||0;vb=b.market_cap||0}
             else if(col==='fdv'){va=a.fully_diluted_valuation||0;vb=b.fully_diluted_valuation||0}
             else if(col==='vol'){va=a.total_volume||0;vb=b.total_volume||0}
+            else if(col==='spark'){var sa=a.sparkline_in_7d&&a.sparkline_in_7d.price;var sb=b.sparkline_in_7d&&b.sparkline_in_7d.price;va=sa?(sa[sa.length-1]-sa[0])/sa[0]*100:0;vb=sb?(sb[sb.length-1]-sb[0])/sb[0]*100:0}
             else{va=0;vb=0}
             if(typeof va==='string')return asc?va.localeCompare(vb):vb.localeCompare(va);
             return asc?va-vb:vb-va;

@@ -53,12 +53,6 @@
         h1,h2,h3,.stat-number{font-family:'Fragment Mono',monospace}
         .accent{background:linear-gradient(135deg,var(--accent-start),var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
         .underline-accent{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:6px;text-decoration-thickness:2px}
-        .sammy-banner{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 8%,var(--bg)),color-mix(in srgb,var(--accent) 10%,var(--bg)));border-bottom:1px solid color-mix(in srgb,var(--accent) 15%,var(--border));padding:.4rem 1.5rem;display:flex;align-items:center;font-size:.75rem}
-        .sammy-banner a{color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:.4rem;font-weight:500;transition:color .2s}
-        .sammy-banner a:hover{color:color-mix(in srgb,var(--accent) 70%,var(--text))}
-        .sammy-name{text-decoration:underline;text-underline-offset:3px}
-        .sammy-x{width:12px;height:12px;fill:var(--accent);flex-shrink:0}
-        .sammy-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;margin-right:6px}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
         header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
         nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
@@ -164,7 +158,6 @@
             td{padding:.5rem .4rem;font-size:.8rem}
             .modal{padding:1.5rem;margin:.5rem}
             .modal-stats{grid-template-columns:repeat(2,1fr)}
-            .sammy-banner{padding:.35rem 1rem;font-size:.7rem}
         }
     </style>
     <script>(function(){var t=localStorage.getItem('clawprice-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
@@ -261,7 +254,6 @@
     <footer>
         <p class="footer-text">&copy; 2026 ClawPrice. All rights reserved.</p>
         <p class="footer-text" style="margin-top:.35rem">Powered by <a href="https://www.coingecko.com/en/api" target="_blank" rel="noopener">CoinGecko API</a></p>
-        <p class="footer-text" style="margin-top:.5rem"><a href="https://x.com/khalaResearch" target="_blank" rel="noopener" class="built-by">Built by Khala Research</a></p>
     </footer>
 
     <script>
